@@ -35,6 +35,7 @@ executables:
      - lens
      - diagrams-lib
      - diagrams-svg
+     - colour
 
 tests:
   diagrams-rubiks-cube-prac-test:
