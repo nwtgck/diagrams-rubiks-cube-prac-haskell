@@ -15,7 +15,7 @@
 # resolver:
 #  name: custom-snapshot
 #  location: "./custom-snapshot.yaml"
-resolver: lts-7.1
+resolver: lts-6.10
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -41,7 +41,6 @@ packages:
 # (e.g., acme-missiles-0.3)
 extra-deps: 
 - diagrams-rubiks-cube-0.3.0.0
-# - cairo-0.13.3.1 # (from: https://github.com/gtk2hs/gtk2hs/issues/183)
 
 # Override default flag values for local packages and extra-deps
 # flags: {}
