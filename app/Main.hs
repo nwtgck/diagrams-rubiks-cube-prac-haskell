@@ -39,7 +39,8 @@ main = do
       settings :: MovesSettings Double
       settings = (with & showStart .~ True) 
       d :: Diagram (SVG.CmdLine.B)
-      d   = drawMoves settings solvedRubiksCube []
+      -- d   = drawMoves settings solvedRubiksCube []
+      d   = drawRubiksCube def solvedRubiksCube
   SVG.CmdLine.mainWith d
   return ()
 
