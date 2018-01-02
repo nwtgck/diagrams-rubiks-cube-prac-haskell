@@ -23,7 +23,9 @@ import Data.Function (on)
 import Data.List (sortBy, mapAccumL)
 import Data.Typeable (Typeable)
 
-import qualified Diagrams.Backend.SVG.CmdLine as SVG.CmdLine
+import qualified Diagrams.Backend.SVG as Backend.SVG
+-- import qualified Diagrams.Backend.SVG.CmdLine as SVG.CmdLine
+-- import Diagrams.Backend.Cairo
 
 -- drawMovesExample' =
 --   let moves = [B, R, F', R', D', F, F]
@@ -31,17 +33,19 @@ import qualified Diagrams.Backend.SVG.CmdLine as SVG.CmdLine
 --       settings = with & showStart .~ True
 --   in drawMovesBackward settings endPos moves
 
--- stack build && stack exec diagrams-rubiks-cube-prac-exe -- -o cube.svg -w 400
+-- stack build && stack exec diagrams-rubiks-cube-prac-exe
 main :: IO ()
 main = do
   let 
       c   = solvedRubiksCube ^. undoMoves [R,U,R',U']
       settings :: MovesSettings Double
       settings = (with & showStart .~ True) 
-      d :: Diagram (SVG.CmdLine.B)
+      d :: Diagram (Backend.SVG.B)
       -- d   = drawMoves settings solvedRubiksCube []
       d   = drawRubiksCube def solvedRubiksCube
-  SVG.CmdLine.mainWith d
+  -- renderDia Backend.SVG.SVG (CairoOptions "foo.svg" (Width 250) Backend.SVG.SVG False) (d )
+  Backend.SVG.renderSVG "hoge.svg" (mkWidth 250) d
+  -- SVG.CmdLine.mainWith d
   return ()
 
 -- -- (from: https://archives.haskell.org/projects.haskell.org/diagrams/doc/quickstart.html)
