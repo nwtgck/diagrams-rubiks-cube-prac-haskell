@@ -1,5 +1,3 @@
-{-# LANGUAGE FlexibleContexts, TypeFamilies #-}
-{-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE Rank2Types #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -8,56 +6,23 @@
 
 module Main where
 
-import Diagrams.RubiksCube
-import Control.Lens
-import Diagrams.RubiksCube.Move (Move (..))
-import Diagrams.RubiksCube.Model
+import qualified Diagrams.RubiksCube
+import qualified Diagrams.RubiksCube.Move as RubiksCube.Move
+import qualified Diagrams.RubiksCube.Model
 
 import Control.Lens hiding ((#))
-import Diagrams.Prelude hiding (center, cube)
-import Diagrams.TwoD.Arrow (arrowFromLocatedTrail')
-import Diagrams.Trail (trailPoints)
-import qualified Diagrams.Prelude as P
+import qualified Diagrams.Prelude
 
-import Data.Function (on)
-import Data.List (sortBy, mapAccumL)
-import Data.Typeable (Typeable)
+import qualified Diagrams.Backend.SVG
 
-import qualified Diagrams.Backend.SVG as Backend.SVG
--- import qualified Diagrams.Backend.SVG.CmdLine as SVG.CmdLine
--- import Diagrams.Backend.Cairo
-
--- drawMovesExample' =
---   let moves = [B, R, F', R', D', F, F]
---       endPos = solvedRubiksCube
---       settings = with & showStart .~ True
---   in drawMovesBackward settings endPos moves
-
--- stack build && stack exec diagrams-rubiks-cube-prac-exe
 main :: IO ()
 main = do
   let 
-      c   = solvedRubiksCube ^. undoMoves [R,U,R',U']
-      settings :: MovesSettings Double
-      settings = (with & showStart .~ True) 
-      d :: Diagram (Backend.SVG.B)
+      c   = Diagrams.RubiksCube.solvedRubiksCube ^. Diagrams.RubiksCube.Model.undoMoves [RubiksCube.Move.R, RubiksCube.Move.U, RubiksCube.Move.R', RubiksCube.Move.U']
+      settings :: Diagrams.RubiksCube.MovesSettings Double
+      settings = (Diagrams.Prelude.with & Diagrams.RubiksCube.showStart .~ True)
+      d :: Diagrams.Prelude.Diagram (Diagrams.Backend.SVG.B)
       -- d   = drawMoves settings solvedRubiksCube []
-      d   = drawRubiksCube def solvedRubiksCube
-  -- renderDia Backend.SVG.SVG (CairoOptions "foo.svg" (Width 250) Backend.SVG.SVG False) (d )
-  Backend.SVG.renderSVG "hoge.svg" (mkWidth 250) d
-  -- SVG.CmdLine.mainWith d
+      d   = Diagrams.RubiksCube.drawRubiksCube Diagrams.Prelude.def Diagrams.RubiksCube.solvedRubiksCube
+  Diagrams.Backend.SVG.renderSVG "hoge.svg" (Diagrams.Prelude.mkWidth 250) d
   return ()
-
--- -- (from: https://archives.haskell.org/projects.haskell.org/diagrams/doc/quickstart.html)
--- {-# LANGUAGE NoMonomorphismRestriction #-}
--- {-# LANGUAGE FlexibleContexts          #-}
--- {-# LANGUAGE TypeFamilies              #-}
-
--- import Diagrams.Prelude
--- import qualified Diagrams.Backend.SVG.CmdLine as SVG.CmdLine
-
--- myCircle :: Diagram (SVG.CmdLine.B)
--- myCircle = circle 1
-
--- main = SVG.CmdLine.mainWith myCircle
--- -- stack build && stack exec diagrams-rubiks-cube-prac-exe -- -o circle.svg -w 400

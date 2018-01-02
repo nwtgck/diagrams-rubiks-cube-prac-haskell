@@ -35,7 +35,6 @@ executables:
      - lens
      - diagrams-lib
      - diagrams-svg
-    #  - diagrams-cairo
 
 tests:
   diagrams-rubiks-cube-prac-test:
