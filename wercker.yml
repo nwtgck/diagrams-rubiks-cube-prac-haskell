@@ -1,0 +1,12 @@
+# Use haskell-stack-1.2.0 image in Docker hub
+box: nwtgck/haskell-stack-1.2.0
+build:
+  steps:
+    - script:
+      name: Build
+      code: stack build
+
+    # ==== THIS IS FOR JUST WORKING TEST ====
+    - script:
+      name: Execute
+      code: stack exec diagrams-rubiks-cube-prac-exe
