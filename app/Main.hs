@@ -34,10 +34,21 @@ main :: IO ()
 main = do
   let cube :: Diagrams.RubiksCube.Model.RubiksCube (Data.Colour.RGBSpace.Colour Double)
       cube    = standardRubiksCube ^. Diagrams.RubiksCube.Model.undoMoves [RubiksCube.Move.R, RubiksCube.Move.U, RubiksCube.Move.R', RubiksCube.Move.U']
+      tPermMoves :: [RubiksCube.Move.Move]
+      tPermMoves =
+        let
+          r  = RubiksCube.Move.R
+          u  = RubiksCube.Move.U
+          r' = RubiksCube.Move.R'
+          u' = RubiksCube.Move.U'
+          f  = RubiksCube.Move.F
+          f' = RubiksCube.Move.F'
+        in  [r, u, r', u', r', f, r, r, u', r', u', r, u, r', f']
       settings :: Diagrams.RubiksCube.MovesSettings Double
       settings = (Diagrams.Prelude.with & Diagrams.RubiksCube.showStart .~ True)
       d :: Diagrams.Prelude.Diagram (Diagrams.Backend.SVG.B)
-      -- d   = drawMoves settings solvedRubiksCube []
       d   = Diagrams.RubiksCube.drawRubiksCube Diagrams.Prelude.def standardRubiksCube
-  Diagrams.Backend.SVG.renderSVG "demo_images/demo1.svg" (Diagrams.Prelude.mkWidth 250) d
+      tPermedD = Diagrams.RubiksCube.drawMoves Diagrams.Prelude.def standardRubiksCube tPermMoves
+  Diagrams.Backend.SVG.renderSVG "demo_images/demo1.svg" (Diagrams.Prelude.mkWidth 100) d
+  Diagrams.Backend.SVG.renderSVG "demo_images/t_perm.svg" (Diagrams.Prelude.mkWidth 900) tPermedD
   return ()

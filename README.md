@@ -12,9 +12,14 @@ stack build
 stack exec diagrams-rubiks-cube-prac-exe
 ```
 
-## Genrated image
+## Genrated images
 
+### Normal image
 ![demo1](demo_images/demo1.svg)
+
+## T-perm (step-by-step image)
+
+![t_perm](demo_images/t_perm.svg)
 
 ## References
 
