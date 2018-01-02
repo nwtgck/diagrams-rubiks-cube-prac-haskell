@@ -22,9 +22,6 @@ description:         Please see the README on Github at <https://github.com/nwtg
 dependencies:
 - base >= 4.7 && < 5
 
-#library:
-#  source-dirs: src
-
 executables:
   diagrams-rubiks-cube-prac-exe:
     main:                Main.hs
@@ -33,8 +30,11 @@ executables:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
-    dependencies: []
-#    - diagrams-rubiks-cube-prac
+    dependencies:
+     - diagrams-rubiks-cube
+     - lens
+     - diagrams-lib
+     - diagrams-svg
 
 tests:
   diagrams-rubiks-cube-prac-test:

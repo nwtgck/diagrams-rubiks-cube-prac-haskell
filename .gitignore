@@ -1,2 +1,6 @@
 /.stack-work/
 /diagrams-rubiks-cube-prac.cabal
+
+/.idea
+/cabal.config
+/diagrams-rubiks-cube-prac.iml
