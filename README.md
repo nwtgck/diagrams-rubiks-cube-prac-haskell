@@ -20,3 +20,4 @@ stack exec diagrams-rubiks-cube-prac-exe
 
 * [diagrams-rubiks-cube - Hackage](http://hackage.haskell.org/package/diagrams-rubiks-cube)
 * [diagrams-lib - Hackage](https://hackage.haskell.org/package/diagrams-lib)
+* [colour - Hackage](https://hackage.haskell.org/package/colour)
